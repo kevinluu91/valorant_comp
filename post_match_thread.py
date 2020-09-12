@@ -23,6 +23,11 @@ def get_matchlist_main(args: argparse.Namespace) -> None:
     pretty_json = json.dumps(matchlist_json, sort_keys=True, indent=4)
     print(pretty_json)
 
+def get_match_main(args: argparse.Namespace) -> None:
+    match_json = get_match(args.match_id)
+    pretty_json = json.dumps(match_json, sort_keys=True, indent=4)
+    print(pretty_json)
+
 def create_thread_main(args: argparse.Namespace) -> None:
     match_json = get_match(args.match_id)
     output = ''
@@ -70,6 +75,13 @@ def main():
                                  help='Event Id according to api.vlr.gg',
                                  required=True)
     get_matchlist_p.set_defaults(func=get_matchlist_main)
+
+    get_match_p = sub.add_parser('get_match',
+                                 description='Print out match response')
+    get_match_p.add_argument('--match_id',
+                             help='Match Id according to api.vlr.gg',
+                             required=True)
+    get_match_p.set_defaults(func=get_match_main)
 
     create_thread_p = sub.add_parser('create_thread',
                                      description='Print out post match thread')
