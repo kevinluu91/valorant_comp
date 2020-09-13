@@ -13,7 +13,7 @@ Methods for hitting Valorant APIs
 """
 
 def get_matchlist(event_id: str) -> Dict:
-    resp = requests.get('{API_URL}/event/{event_id}'.format(API_URL=API_URL, event_id=event_id),
+    resp = requests.get('{API_URL}/matchlist/{event_id}'.format(API_URL=API_URL, event_id=event_id),
                         params={'token': API_TOKEN})
     return resp.json()
 
