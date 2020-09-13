@@ -8,6 +8,10 @@ from typing import Dict
 API_URL = 'https://api.vlr.gg'
 API_TOKEN = 'bc6fd21d-a09d-4f33-b71b-2223f59711cd'
 
+"""
+Methods for hitting Valorant APIs
+"""
+
 def get_matchlist(event_id: str) -> Dict:
     resp = requests.get('{API_URL}/matchlist/{event_id}'.format(API_URL=API_URL, event_id=event_id),
                         params={'token': API_TOKEN})
