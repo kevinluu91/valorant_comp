@@ -62,7 +62,7 @@ def create_thread_main(args: argparse.Namespace) -> None:
             output += '---|---|---|---|---\n'
             for each_player in each_team['players']:
                 stats = each_player['stats']
-                output += each_player['alias'] + ' **' + stats['agent'].capitalize() + '**|' + stats['combat_score'] + '|' + stats['kills'] + '|' + stats['deaths'] + '|' + stats['assists'] + '\n'
+                output += '[' + each_player['alias'] + '](https://www.vlr.gg/player/' + each_player['player_id'] + ') **' + stats['agent'].capitalize() + '**|' + stats['combat_score'] + '|' + stats['kills'] + '|' + stats['deaths'] + '|' + stats['assists'] + '\n'
             output += '\n'
         output += '---\n'
 
