@@ -13,7 +13,7 @@ Methods for hitting Valorant APIs
 """
 
 def get_matchlist(event_id: str) -> Dict:
-    resp = requests.get('{API_URL}/matchlist/{event_id}'.format(API_URL=API_URL, event_id=event_id),
+    resp = requests.get('{API_URL}/event/{event_id}'.format(API_URL=API_URL, event_id=event_id),
                         params={'token': API_TOKEN})
     return resp.json()
 
@@ -62,7 +62,7 @@ def create_thread_main(args: argparse.Namespace) -> None:
             output += '---|---|---|---|---\n'
             for each_player in each_team['players']:
                 stats = each_player['stats']
-                output += each_player['alias'] + ' **' + stats['agent'].capitalize() + '**|' + stats['combat_score'] + '|' + stats['kills'] + '|' + stats['deaths'] + '|' + stats['assists'] + '\n'
+                output += '[' + each_player['alias'] + '](https://www.vlr.gg/player/' + each_player['player_id'] + ') **' + stats['agent'].capitalize() + '**|' + stats['combat_score'] + '|' + stats['kills'] + '|' + stats['deaths'] + '|' + stats['assists'] + '\n'
             output += '\n'
         output += '---\n'
 
