@@ -35,6 +35,7 @@ def get_match_main(args: argparse.Namespace) -> None:
 def create_thread_main(args: argparse.Namespace) -> None:
     match_json = get_match(args.match_id)
     output = ''
+    startAtk = True
 
     # Overall Details
     teams = match_json['teams']
@@ -51,12 +52,29 @@ def create_thread_main(args: argparse.Namespace) -> None:
     for i, each_map in enumerate(match_json['maps'], start=1):
         if i > int(teams[0]['maps_won']) + int(teams[1]['maps_won']): # Don't print third map stats if not played
             break
+
+        # Figure out which side starts first
+        if each_map['teams'][0]['rounds_won_atk'] + each_map['teams'][1]['rounds_won_def'] == 12:
+            startAtk = True
+        else:
+            startAtk = False
+
+        # Output round totals per side
         output += '### Map ' + str(i) + ': ' + each_map['name'].capitalize() + '\n\n'
-        output += 'Team|||Total\n'
-        output += '---|---|---|---\n'
-        output += '**' + each_map['teams'][0]['name'] + '**|||' + each_map['teams'][0]['rounds_won'] + '\n'
-        output += '&nbsp;|****|****|&nbsp;\n'
-        output += '**' + each_map['teams'][1]['name'] + '**|||' + each_map['teams'][1]['rounds_won'] + '\n\n'
+        if startAtk: 
+            output += 'Team|ATK|DEF|Total\n'
+            output += '---|---|---|---\n'
+            output += '**' + each_map['teams'][0]['name'] + '**|'+ str(each_map['teams'][0]['rounds_won_atk']) + '|' + str(each_map['teams'][0]['rounds_won_def']) + '|' + str(each_map['teams'][0]['rounds_won']) + '\n'
+            output += '&nbsp;|**DEF**|**ATK**|&nbsp;\n'
+            output += '**' + each_map['teams'][1]['name'] + '**|'+ str(each_map['teams'][1]['rounds_won_def']) + '|' + str(each_map['teams'][1]['rounds_won_atk']) + '|' + str(each_map['teams'][1]['rounds_won']) + '\n\n'
+        else: 
+            output += 'Team|DEF|ATK|Total\n'
+            output += '---|---|---|---\n'
+            output += '**' + each_map['teams'][0]['name'] + '**|' + str(each_map['teams'][0]['rounds_won_def']) + '|' + str(each_map['teams'][0]['rounds_won_atk']) + '|' + str(each_map['teams'][0]['rounds_won']) + '\n'
+            output += '&nbsp;|**ATK**|**DEF**|&nbsp;\n'
+            output += '**' + each_map['teams'][1]['name'] + '**|'+ str(each_map['teams'][1]['rounds_won_atk']) + '|' + str(each_map['teams'][1]['rounds_won_def']) + '|' + str(each_map['teams'][1]['rounds_won']) + '\n\n'
+
+        # Output player stat tables
         for each_team in each_map['teams']:
             output += each_team['name'] + '|ACS|K|D|A\n'
             output += '---|---|---|---|---\n'
