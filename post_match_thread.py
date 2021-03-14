@@ -2,11 +2,12 @@
 
 import argparse
 import json
+import os
 import requests
 from typing import Dict
 
 API_URL = 'https://api.vlr.gg'
-API_TOKEN = 'bc6fd21d-a09d-4f33-b71b-2223f59711cd'
+API_TOKEN = os.environ.get('API_TOKEN')
 
 """
 Methods for hitting Valorant APIs
@@ -95,6 +96,9 @@ def main():
     create_thread_p.set_defaults(func=create_thread_main)
 
     args = parser.parse_args()
+
+    assert API_TOKEN != None, "API_TOKEN env var must be set to access api.vlr.gg"
+
     args.func(args)
 
 if __name__ == '__main__':
