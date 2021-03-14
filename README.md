@@ -12,4 +12,3 @@ API_TOKEN={API_TOKEN} python3 post_match_thread.py get_matchlist --event_id {eve
 ```
 API_TOKEN={API_TOKEN} python3 post_match_thread.py create_thread --match_id {match_id}
 ```
-5. Manually edit ATK and DEF rounds won
